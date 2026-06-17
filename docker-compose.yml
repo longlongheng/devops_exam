@@ -1,0 +1,25 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/web/Dockerfile
+    container_name: idcard-web
+    ports:
+      - "8443:8080"
+      - "2222:22"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: idcard-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Hello@123
+      MYSQL_DATABASE: A-Heng_oulong-db
+    ports:
+      - "3307:3306"
+    volumes:
+      - idcard_mysql_data:/var/lib/mysql
+
+volumes:
+  idcard_mysql_data:
