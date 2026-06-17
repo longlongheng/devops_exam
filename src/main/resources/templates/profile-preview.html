@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ID Card Preview</title>
+    <style>
+        .card {
+            width: 350px;
+            border: 2px solid black;
+            padding: 20px;
+            text-align: center;
+            font-family: Arial;
+        }
+        .photo {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border: 1px solid gray;
+        }
+        .code {
+            width: 120px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Live ID Card Preview</h1>
+
+<div class="card">
+    <h2>ID CARD</h2>
+
+    <img class="photo" th:if="${profile.photoPath != null}" th:src="${profile.photoPath}">
+
+    <p><b>Name:</b> <span th:text="${profile.fullName}"></span></p>
+    <p><b>Type:</b> <span th:text="${profile.profileType}"></span></p>
+    <p><b>Department:</b> <span th:text="${profile.department}"></span></p>
+    <p><b>Registration:</b> <span th:text="${profile.registrationNumber}"></span></p>
+    <p><b>Email:</b> <span th:text="${profile.email}"></span></p>
+
+    <img class="code" th:if="${profile.qrCodePath != null}" th:src="${profile.qrCodePath}">
+    <br>
+    <img class="code" th:if="${profile.barcodePath != null}" th:src="${profile.barcodePath}">
+</div>
+
+<br>
+<a th:href="@{/profiles/{id}/pdf(id=${profile.id})}">Download PDF</a>
+<br>
+<a href="/">Back</a>
+
+</body>
+</html>

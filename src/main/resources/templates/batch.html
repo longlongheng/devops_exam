@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Batch ID Cards</title>
+</head>
+<body>
+<h1>Batch ID Card Generation</h1>
+
+<div th:each="profile : ${profiles}" style="border:1px solid black; padding:10px; margin:10px;">
+    <h3 th:text="${profile.fullName}"></h3>
+    <p th:text="${profile.registrationNumber}"></p>
+    <p th:text="${profile.profileType}"></p>
+    <a th:href="@{/profiles/{id}/pdf(id=${profile.id})}">Download PDF</a>
+</div>
+
+<a href="/">Back</a>
+</body>
+</html>

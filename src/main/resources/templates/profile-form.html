@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Profile</title>
+</head>
+<body>
+<h1>Create / Edit Profile</h1>
+
+<form action="/profiles" method="post" enctype="multipart/form-data" th:object="${profile}">
+    <label>Full Name:</label><br>
+    <input type="text" th:field="*{fullName}" required><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" th:field="*{email}"><br><br>
+
+    <label>Department:</label><br>
+    <input type="text" th:field="*{department}"><br><br>
+
+    <label>Phone:</label><br>
+    <input type="text" th:field="*{phone}"><br><br>
+
+    <label>Profile Type:</label><br>
+    <select th:field="*{profileType}">
+        <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+    </select><br><br>
+
+    <label>Photo JPEG/PNG max 2MB:</label><br>
+    <input type="file" name="photo" accept="image/png,image/jpeg"><br><br>
+
+    <button type="submit">Save Profile</button>
+</form>
+
+<br>
+<a href="/">Back</a>
+</body>
+</html>
