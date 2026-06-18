@@ -4,6 +4,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
@@ -13,7 +14,8 @@ import java.util.UUID;
 @Service
 public class CodeGeneratorService {
 
-    private final String uploadDir = "src/main/resources/static/uploads";
+    @Value("${app.upload.dir}")
+    private String uploadDir;
 
     public String generateQrCode(String text) throws Exception {
         Files.createDirectories(Path.of(uploadDir));

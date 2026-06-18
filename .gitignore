@@ -1,5 +1,8 @@
 HELP.md
 target/
+backup.sql
+test-output.txt
+src/main/resources/static/uploads/*
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
