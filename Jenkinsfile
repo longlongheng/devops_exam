@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         REPO_URL = 'https://github.com/longlongheng/devops_exam.git'
-        BRANCH_NAME = 'main'
+        BRANCH_NAME = 'master'
     }
 
     stages {
@@ -64,8 +64,7 @@ ${env.BUILD_NUMBER}
 
 Check Jenkins console output for details.
 """,
-                to: '${env.CHANGE_AUTHOR_EMAIL}',
-                cc: 'srengty@gmail.com',
+                to: 'srengty@gmail.com',
                 recipientProviders: [developers()]
             )
         }
