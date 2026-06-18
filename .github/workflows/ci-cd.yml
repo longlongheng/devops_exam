@@ -1,0 +1,48 @@
+name: GitHub Actions CI CD
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  build-test-deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Show Java and Maven versions
+        run: |
+          java -version
+          mvn -version
+
+      - name: Build with Maven
+        run: |
+          mvn clean package -DskipTests 2>&1 | tee github-build-output.txt
+
+      - name: Test with SQLite
+        run: |
+          mvn clean test 2>&1 | tee github-test-output.txt
+
+      - name: Deploy with Ansible
+        run: |
+          ansible-playbook -i ansible/inventory.ini ansible/deploy.yml 2>&1 | tee github-ansible-output.txt
+
+      - name: Upload build outputs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: github-actions-output
+          path: |
+            github-build-output.txt
+            github-test-output.txt
+            github-ansible-output.txt
+
+      - name: Send failure email note
+        if: failure()
+        run: |
+          echo "Build failed. Notify srengty@gmail.com and commit developer."
+          echo "GitHub Actions failure notification is visible to the committer in GitHub."
